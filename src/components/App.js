@@ -2,6 +2,7 @@ import React, {Component, Fragment} from 'react';
 import {BrowserRouter as Router, Route, Switch, withRouter} from 'react-router-dom';
 import {connect} from 'react-redux';
 import Dashboard from './Dashboard';
+import Leaderboard from './Leaderboard';
 import NewQuestion from './NewQuestion';
 import QuestionPoll from './QuestionPoll';
 import QuestionPollResults from './QuestionPollResults';
@@ -12,6 +13,7 @@ import ProtectedRoute from './ProtectedRoute';
 import LoadingBar from 'react-redux-loading';
 import PageNotFound from './404';
 import {handleGetQuestions} from "../actions/questions";
+
 
 class App extends Component {
 
@@ -38,9 +40,11 @@ class App extends Component {
                                                     isAuthenticated={this.props.authenticated}/>
                                     <ProtectedRoute path='/add' exact component={NewQuestion}
                                                     isAuthenticated={this.props.authenticated}/>
+                                    <ProtectedRoute path='/leaderboard' exact component={Leaderboard}
+                                                    isAuthenticated={this.props.authenticated}/>
                                     <Route path="/login" component={withRouter(Login)}/>
                                     <Route path="/logout" exact component={withRouter(Logout)}/>
-                                    <Route exact component={PageNotFound} />
+                                    <Route component={PageNotFound} />
                                 </Switch>
                             </div>
                         }

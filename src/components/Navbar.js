@@ -12,6 +12,8 @@ const Navbar = () => {
                                      className="nav-item nav-link">Home</NavLink>
                             <NavLink to='/add' exact activeClassName='active'
                                      className="nav-item nav-link">New Question</NavLink>
+                            <NavLink to='/leaderboard' exact activeClassName='active'
+                                     className="nav-item nav-link">Leader Board</NavLink>
                         </ul>
                         <span className="navbar-nav"><Link to="/logout"><button
                             className="btn-sm btn-outline-danger">Logout</button></Link></span>

@@ -36,13 +36,13 @@ class QuestionPoll extends Component {
     render() {
         const {optionSelected, answerSubmitted} = this.state;
         const {id, question, author, pageNotFound} = this.props;
-        
+
         if (pageNotFound === true) {
-            return  (<PageNotFound />)
+            return <PageNotFound/>;
         }
 
-        // show poll results if the user submitted the answer
         const redirectTo = `/question/${id}/results`;
+
         if (answerSubmitted === true) {
             return <Redirect to={redirectTo}/>;
         }
