@@ -1,12 +1,12 @@
 import {_getUser} from '../utils/_DATA';
 import { showLoading, hideLoading } from 'react-redux-loading';
 
-export const AUTH_LOGIN_SUCCESS = 'LOGIN_SUCCESS';
-export const AUTH_LOGOUT_SUCCESS = 'LOGOUT_SUCCESS';
+export const LOGIN = 'LOGIN';
+export const LOGOUT = 'LOGOUT';
 
 export function receiveAuthLogin(user) {
     return {
-        type: AUTH_LOGIN_SUCCESS,
+        type: LOGIN,
         authenticated: true,
         authedUser: user
     }
@@ -14,13 +14,13 @@ export function receiveAuthLogin(user) {
 
 export function receiveAuthLogout() {
     return {
-        type: AUTH_LOGOUT_SUCCESS,
+        type: LOGOUT,
         authenticated: null,
         authedUser: null
     }
 }
 
-export function handleLoginUser(id) {
+export function handleLogin(id) {
     return (dispatch) => {
         dispatch(showLoading());
         _getUser(id).then((user) => {

@@ -2,12 +2,12 @@ import React, {Component} from 'react';
 import {Redirect} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {handleGetUsers} from '../actions/users';
-import {handleLoginUser} from '../actions/authedUser';
+import {handleLogin} from '../actions/authedUser';
 import LoadingBar from "react-redux-loading";
 
 class Login extends Component {
     state = {
-        authedUser: ''
+        userSelected: ''
     };
 
     componentDidMount() {
@@ -15,16 +15,19 @@ class Login extends Component {
     }
 
     handleChange = (e) => {
-        const authedUser = e.target.value;
+        const userSelected = e.target.value;
+
         this.setState(() => ({
-            authedUser
+            userSelected
         }));
     };
 
     handleSubmit = (e) => {
         e.preventDefault();
+
         const {dispatch} = this.props;
-        dispatch(handleLoginUser(this.state.authedUser));
+
+        dispatch(handleLogin(this.state.userSelected));
     };
 
     render() {
@@ -32,8 +35,10 @@ class Login extends Component {
             return <div/>;
         }
 
+        const {from} = this.props.location.state || {from: {pathname: '/'}};
+
         if (this.props.isAuthed) {
-            return <Redirect to="/home"/>;
+            return <Redirect to='/'/>;
         }
 
         return (
@@ -46,12 +51,13 @@ class Login extends Component {
                         <div className="main-div">
                             <div className="panel">
                                 <h2>Login</h2>
+                                <p>Please select a user to log in as.</p>
                             </div>
                             <form id="Login" onSubmit={this.handleSubmit}>
                                 <div className="form-group">
-                                    <select className="form-control" id="id"
+                                    <select className="form-control" id="userId"
                                             onChange={(e) => this.handleChange(e)}>
-                                        <option>Select User</option>
+                                        <option></option>
                                         {
                                             Object.keys(this.props.users).map((user) => {
                                                 return <option key={this.props.users[user].id}
@@ -61,7 +67,7 @@ class Login extends Component {
                                     </select>
                                 </div>
 
-                                <button type="submit" className="btn btn-success" disabled={this.state.authedUser === ''}>Login</button>
+                                <button type="submit" className="btn btn-success" disabled={this.state.userSelected === ''}>Login</button>
                             </form>
                         </div>
                     </div>

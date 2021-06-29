@@ -13,8 +13,10 @@ class QuestionPoll extends Component {
 
     handleSubmit(e, questionId) {
         e.preventDefault();
+
         const {dispatch} = this.props;
         const {optionSelected} = this.state;
+
         dispatch(handleAddQuestionAnswer(questionId, optionSelected));
 
         this.setState(() => ({
@@ -34,13 +36,15 @@ class QuestionPoll extends Component {
     render() {
         const {optionSelected, answerSubmitted} = this.state;
         const {id, question, author, pageNotFound} = this.props;
-
+        
         if (pageNotFound === true) {
-            return <PageNotFound/>;
+            return  (<PageNotFound />)
         }
 
+        // show poll results if the user submitted the answer
+        const redirectTo = `/question/${id}/results`;
         if (answerSubmitted === true) {
-            return <Redirect to="/home"/>;
+            return <Redirect to={redirectTo}/>;
         }
 
         return (
@@ -50,11 +54,15 @@ class QuestionPoll extends Component {
                         <div className='row justify-content-center'>
                             <div className='col-sm-8'>
                                 <div className='card'>
-                                    <div className='card-header bold'>would you rather...</div>
+                                    <div className='card-header bold'>{author.name} asks would you rather...</div>
                                     <div className='card-body'>
                                         <div className='container'>
                                             <div className='row justify-content-center'>
-                
+                                                <div className='col-sm-4 border-right center'>
+                                                    <img src={author.avatarURL}
+                                                         alt={`Avatar of ${author.name}`}
+                                                         className='avatar'/>
+                                                </div>
                                                 <div className='col-sm-8'>
                                                     <div className='question-info'>
                                                         <form onSubmit={(e) => this.handleSubmit(e, id)}>
@@ -87,7 +95,7 @@ class QuestionPoll extends Component {
                                                                 </label>
                                                             </div>
                                                             <button
-                                                                className='btn btn-success m-15-top'
+                                                                className='btn btn-outline-primary m-15-top'
                                                                 type='submit'
                                                                 disabled={optionSelected === ''}
                                                             >
@@ -114,17 +122,17 @@ function mapStateToProps({login, questions, users, match}, props) {
 
     var pageNotFound = true;
     var author = "";
-    var question = "";
+    var specificQuestion = "";
 
     if (questions[id] !== undefined) {
         pageNotFound = false;
-        question = questions[id];
-        author = users[question['author']];
+        specificQuestion = questions[id];
+        author = users[specificQuestion['author']];
     }
 
     return {
         id,
-        question: question,
+        question: specificQuestion,
         author: author,
         authedUser: login.authedUser.id,
         pageNotFound: pageNotFound

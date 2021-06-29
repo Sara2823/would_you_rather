@@ -2,7 +2,7 @@ import {_getUsers} from "../utils/_DATA";
 import {showLoading, hideLoading} from 'react-redux-loading';
 
 export const RECEIVE_USERS = 'RECEIVE_USERS';
-export const ADD_USER_QUESTION_ANSWER = 'ADD_USER_QUESTION_ANSWER';
+export const ADD_USER_ANSWER = 'ADD_USER_ANSWER';
 export const ADD_USER_QUESTION = 'ADD_USER_QUESTION';
 
 export function receiveUsers(users) {
@@ -21,7 +21,7 @@ export function addUserQuestion(question) {
 
 export function addUserQuestionAnswer(authedUser, questionId, selectedOption) {
     return {
-        type: ADD_USER_QUESTION_ANSWER,
+        type: ADD_USER_ANSWER,
         authedUser,
         questionId,
         selectedOption

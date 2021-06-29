@@ -1,21 +1,23 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import Question from './QuestionCard';
+import Question from './Question';
 
-class Home extends Component {
+class Dashboard extends Component {
 
     state = {
-        'displyQuestions': 'unanswered',
+        'questionsToShow': 'unanswered',
+        'activeTab': 'unanswered'
     };
 
     handleTabChange = (e, tab) => {
         this.setState(() => ({
-            displyQuestions: tab,
+            questionsToShow: tab,
+            activeTab: tab
         }));
     };
 
     render() {
-        const {displyQuestions,} = this.state;
+        const {questionsToShow, activeTab} = this.state;
 
         return (
             <div>
@@ -25,12 +27,12 @@ class Home extends Component {
                             <div className='col-sm-8'>
                                 <div className='center'>
                                     <button type='button'
-                                            className="btn btn-info "
+                                            className={"btn btn-info " + (activeTab === 'unanswered' ? 'active' : null)}
                                             onClick={(e) => this.handleTabChange(e, 'unanswered')}>Unanswered
                                         Questions
                                     </button>
                                     <button type='button'
-                                            className="btn btn-info "
+                                            className={"btn btn-info " + (activeTab === 'answered' ? 'active' : null)}
                                             onClick={(e) => this.handleTabChange(e, 'answered')}>Answered
                                         Questions
                                     </button>
@@ -43,7 +45,7 @@ class Home extends Component {
                                 {this.props.questionIds.map((id) => {
                                     return (
                                         <Question key={id} id={id}
-                                                  displyQuestions={displyQuestions}/>
+                                                  questionsToShow={questionsToShow}/>
                                     )
                                 })}
                             </div>
@@ -62,4 +64,4 @@ function mapStateToProps({questions}) {
     }
 }
 
-export default connect(mapStateToProps)(Home);
+export default connect(mapStateToProps)(Dashboard);

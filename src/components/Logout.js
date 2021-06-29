@@ -10,7 +10,7 @@ class Logout extends Component {
 
     render() {
         return (
-            <Redirect to="/" />
+            <Redirect to="/login"/>
         );
     }
 }
