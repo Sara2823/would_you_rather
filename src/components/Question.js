@@ -33,6 +33,7 @@ const Question = (props) => {
                     <div className='container'>
                         <div className='row justify-content-center'>
                             <div className='col-sm-4 border-right center'>
+                                <p></p>
                                 <img src={avatar} alt={`Avatar of ${name}`} className='avatar'/>
                                 <p>{name}</p>
                             </div>
